@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/opt/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/jhonatankeb/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/media/Uni/2B/Programación orientada a objetos/Unidad 2/Flutter/donut_app_2b_keb/android/app/.cxx/Debug/3u314w6w/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/jhonatankeb/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/media/Uni/2B/Programación orientada a objetos/Unidad 2/Flutter/donut_app_2b_keb/android/app/.cxx/Debug/3u314w6w/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

@@ -23,7 +23,9 @@ class DonutTab extends StatelessWidget {
         //Prepa 1: Organiza como distribuir elementos en la cuadricula
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             //Numero de colummnas
-            crossAxisCount: 2),
+            crossAxisCount: 2,
+            //Relación de aspecto (Proporción)
+            childAspectRatio: 1 / 1.5),
         itemBuilder: (context, index) {
           return DonutTile(
             donutFLavor: donutsOnSale[index][0],
