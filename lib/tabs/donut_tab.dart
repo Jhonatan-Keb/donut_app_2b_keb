@@ -37,7 +37,7 @@ class DonutTab extends StatelessWidget {
             //Numero de colummnas
             crossAxisCount: 2,
             //Relación de aspecto (Proporción)
-            childAspectRatio: 1 / 2),
+            childAspectRatio: 1 / 1.65),
         itemBuilder: (context, index) {
           return DonutTile(
             donutFLavor: donutsOnSale[index][0],

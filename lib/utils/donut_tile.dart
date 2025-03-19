@@ -22,7 +22,7 @@ class DonutTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-            color: donutColor[100], borderRadius: BorderRadius.circular(24)),
+            color: donutColor[50], borderRadius: BorderRadius.circular(24)),
         child: Column(children: [
           //PriceTag
           Row(
@@ -59,7 +59,7 @@ class DonutTile extends StatelessWidget {
             donutFLavor,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
-          
+
           //Para tener un espacio entre texto
           SizedBox(
             height: 4,
@@ -75,13 +75,21 @@ class DonutTile extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(Icons.favorite_border, color: Colors.pink[400],),
-                Text("Add", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, decoration: TextDecoration.underline, ),)
+                Icon(
+                  Icons.favorite_border,
+                  color: Colors.pink[400],
+                ),
+                Text(
+                  "Add",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                  ),
+                )
               ],
             ),
           ),
-          
-
         ]),
       ),
     );
