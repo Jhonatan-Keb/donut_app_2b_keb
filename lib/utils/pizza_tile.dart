@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 
-class DonutTile extends StatelessWidget {
-  final String donutFLavor;
-  final String donutStore;
-  final String donutPrice;
-  //dynamic sera un tipo de color
-  final dynamic donutColor;
+class PizzaTile extends StatelessWidget {
+  final String pizzaName;
+  final String pizzaStore;
+  final String pizzaPrice;
+  final dynamic pizzaColor;
   final String imageName;
   final Function(String, double) addToCart;
 
-  const DonutTile(
+  const PizzaTile(
       {super.key,
-      required this.donutFLavor,
-      required this.donutPrice,
-      required this.donutStore,
-      this.donutColor,
+      required this.pizzaName,
+      required this.pizzaPrice,
+      required this.pizzaStore,
+      this.pizzaColor,
       required this.imageName,
       required this.addToCart
       });
@@ -25,16 +24,16 @@ class DonutTile extends StatelessWidget {
       padding: const EdgeInsets.all(12.0),
       child: Container(
         decoration: BoxDecoration(
-            color: donutColor[50], borderRadius: BorderRadius.circular(24)),
+            color: pizzaColor.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(24)),
         child: Column(children: [
-          //PriceTag
+          // Price Tag
           Row(
-            //Alinea a la derecha
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: donutColor[200],
+                  color: pizzaColor.withOpacity(0.4),
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(24),
                       bottomLeft: Radius.circular(24)),
@@ -42,38 +41,35 @@ class DonutTile extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
                 child: Text(
-                  '\$$donutPrice',
+                  '\$$pizzaPrice',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: donutColor[800]),
+                      color: pizzaColor),
                 ),
               )
             ],
           ),
-          //Donut Picture
+          // Pizza Picture
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
             child: Image.asset(imageName),
           ),
 
-          //Donut Text
+          // Pizza Name
           Text(
-            donutFLavor,
+            pizzaName,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
 
-          //Para tener un espacio entre texto
-          SizedBox(
-            height: 4,
-          ),
-          //Agregar texto de la tienda
+          SizedBox(height: 4),
+          // Store Name
           Text(
-            donutStore,
+            pizzaStore,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
-          //Love icon + add button
-          Padding(
+          // Favorite & Add Button
+           Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +78,7 @@ class DonutTile extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       // Agregar al carrito
-                      addToCart(donutFLavor, double.parse(donutPrice));
+                      addToCart(pizzaName, double.parse(pizzaPrice));
                     },
                   child: const Text(
                     "Add",

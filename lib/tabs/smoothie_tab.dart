@@ -1,79 +1,87 @@
-import 'package:donut_app_2b_keb/utils/donut_tile.dart';
+import 'package:donut_app_2b_keb/utils/smoothie_tile.dart';
 import 'package:flutter/material.dart';
 
 class SmoothieTab extends StatelessWidget {
-  //Lista de donas
-  final List donutsOnSale = [
-    //[donutFlavor,I donutStore, donutPrice, donutColor, imageName]
+  // Lista de smoothies
+  final List smoothiesOnSale = [
+    //[smoothieName, storeName, price, color, imageName]
     [
-      "Ice Cream",
-      "Krispy Kreme",
-      "36",
-      Colors.blue,
-      "lib/images/icecream_donut.png"
-    ],
-    [
-      "Strawberry",
-      "Dunkin Donuts",
-      "45",
-      Colors.red,
-      "lib/images/strawberry_donut.png"
-    ],
-    ["Grape Ape", "Cotsco", "84", Colors.purple, "lib/images/grape_donut.png"],
-    ["Choco", "Walmart", "95", Colors.brown, "lib/images/chocolate_donut.png"],
-
-    [
-      "Ice Cream 2",
-      "Krispy Kreme",
-      "36",
-      Colors.blue,
-      "lib/images/icecream_donut.png"
-    ],
-    [
-      "Strawberry 2",
-      "Dunkin Donuts",
-      "45",
-      Colors.red,
-      "lib/images/strawberry_donut.png"
-    ],
-    [
-      "Grape Ape 2",
-      "Cotsco",
-      "84",
+      "Berry Boost",
+      "Juice It Up",
+      "90",
       Colors.purple,
-      "lib/images/grape_donut.png"
+      "lib/images/smoothies/berry_boost.jpg"
     ],
     [
-      "Choco 2",
-      "Walmart",
+      "Tropical Bliss",
+      "Smoothie King",
+      "100",
+      Colors.orange,
+      "lib/images/smoothies/tropical_bliss.jpg"
+    ],
+    [
+      "Green Detox",
+      "Jamba Juice",
+      "110",
+      Colors.green,
+      "lib/images/smoothies/green_betox.jpg"
+    ],
+    [
+      "Berry Boost",
+      "Booster Juice",
       "95",
+      Colors.red,
+      "lib/images/smoothies/berry_boost.jpg"
+    ],
+    [
+      "Avena & Chia",
+      "Local Smoothies",
+      "120",
       Colors.brown,
-      "lib/images/chocolate_donut.png"
+      "lib/images/smoothies/avena_&_chia_smoothie.jpg"
+    ],
+    [
+      "Cafe y Almendra",
+      "Juice It Up",
+      "105",
+      Colors.blueGrey,
+      "lib/images/smoothies/cafe_y_almendra.jpg"
+    ],
+    [
+      "Piña Colada",
+      "Fresh Blends",
+      "115",
+      Colors.lightGreen,
+      "lib/images/smoothies/pina_colada_smoothie.jpg"
+    ],
+    [
+      "Matcha Energy",
+      "Smoothie King",
+      "125",
+      Colors.brown,
+      "lib/images/smoothies/matcha_energy.jpg"
     ],
   ];
 
-  SmoothieTab({super.key});
+  final Function(String, double) addToCart;
+
+  SmoothieTab({super.key, required this.addToCart});
 
   @override
   Widget build(BuildContext context) {
-    // Para acomodar elementos en cuadricula
     return GridView.builder(
-        //Cuantos elementos tengo
-        itemCount: donutsOnSale.length,
+        itemCount: smoothiesOnSale.length,
         padding: const EdgeInsets.all(8.0),
-        //Prepa 1: Organiza como distribuir elementos en la cuadricula
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //Numero de colummnas
-            crossAxisCount: 2,
-            //Relación de aspecto (Proporción)
-            childAspectRatio: 1 / 1.65),
+            crossAxisCount: 2, childAspectRatio: 1 / 1.65),
         itemBuilder: (context, index) {
-          return DonutTile(
-            donutFLavor: donutsOnSale[index][0],
-            donutStore: donutsOnSale[index][1],
-            donutPrice: donutsOnSale[index][2],
-            donutColor: donutsOnSale[index][3],
-            imageName: donutsOnSale[index][4],
+          return SmoothieTile(
+            smoothieName: smoothiesOnSale[index][0],
+            smoothieStore: smoothiesOnSale[index][1],
+            smoothiePrice: smoothiesOnSale[index][2],
+            smoothieColor: smoothiesOnSale[index][3],
+            imageName: smoothiesOnSale[index][4],
+            addToCart: addToCart,
           );
         });
   }

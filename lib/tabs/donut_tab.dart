@@ -2,6 +2,9 @@ import 'package:donut_app_2b_keb/utils/donut_tile.dart';
 import 'package:flutter/material.dart';
 
 class DonutTab extends StatelessWidget {
+    final Function(String, double) addToCart;
+
+  DonutTab({super.key, required this.addToCart});
   //Lista de donas
   final List donutsOnSale = [
     //[donutFlavor,I donutStore, donutPrice, donutColor, imageName]
@@ -10,49 +13,54 @@ class DonutTab extends StatelessWidget {
       "Krispy Kreme",
       "36",
       Colors.blue,
-      "lib/images/icecream_donut.png"
+      "lib/images/donuts/icecream_donut.png"
     ],
     [
       "Strawberry",
       "Dunkin Donuts",
       "45",
       Colors.red,
-      "lib/images/strawberry_donut.png"
-    ],
-    ["Grape Ape", "Cotsco", "84", Colors.purple, "lib/images/grape_donut.png"],
-    ["Choco", "Walmart", "95", Colors.brown, "lib/images/chocolate_donut.png"],
-
-    [
-      "Ice Cream 2",
-      "Krispy Kreme",
-      "36",
-      Colors.blue,
-      "lib/images/icecream_donut.png"
+      "lib/images/donuts/strawberry_donut.png"
     ],
     [
-      "Strawberry 2",
-      "Dunkin Donuts",
-      "45",
-      Colors.red,
-      "lib/images/strawberry_donut.png"
-    ],
-    [
-      "Grape Ape 2",
+      "Grape Ape",
       "Cotsco",
       "84",
       Colors.purple,
-      "lib/images/grape_donut.png"
+      "lib/images/donuts/grape_donut.png"
     ],
     [
-      "Choco 2",
+      "Choco",
       "Walmart",
       "95",
       Colors.brown,
-      "lib/images/chocolate_donut.png"
+      "lib/images/donuts/chocolate_donut.png"
     ],
+
+    [
+      "Blue",
+      "Krispy Kreme",
+      "36",
+      Colors.blue,
+      "lib/images/donuts/blue_donut.png"
+    ],
+    [
+      "Flower",
+      "Dunkin Donuts",
+      "45",
+      Colors.red,
+      "lib/images/donuts/flower_donut.png"
+    ],
+    [
+      "Heart",
+      "Cotsco",
+      "84",
+      Colors.purple,
+      "lib/images/donuts/heart_donut.png"
+    ],
+    ["X", "Walmart", "95", Colors.brown, "lib/images/donuts/x_donut.png"],
   ];
 
-  DonutTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +82,7 @@ class DonutTab extends StatelessWidget {
             donutPrice: donutsOnSale[index][2],
             donutColor: donutsOnSale[index][3],
             imageName: donutsOnSale[index][4],
+            addToCart: addToCart,
           );
         });
   }

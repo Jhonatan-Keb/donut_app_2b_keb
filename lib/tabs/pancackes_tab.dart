@@ -1,79 +1,93 @@
-import 'package:donut_app_2b_keb/utils/donut_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:donut_app_2b_keb/utils/pancake_tile.dart';
 
-class PancackesTab extends StatelessWidget {
-  //Lista de donas
-  final List donutsOnSale = [
-    //[donutFlavor,I donutStore, donutPrice, donutColor, imageName]
+class PancakeTab extends StatelessWidget {
+  
+  // Lista de pancakes
+  final List pancakesOnSale = [
     [
-      "Ice Cream",
-      "Krispy Kreme",
+      "Clásicos con miel de maple",
+      "Restaurante A",
       "36",
       Colors.blue,
-      "lib/images/icecream_donut.png"
+      "lib/images/pancakes/clásicos_con_miel_de_maple.jpg"
     ],
     [
-      "Strawberry",
-      "Dunkin Donuts",
+      "Red Velvet Pancakes",
+      "Restaurante B",
       "45",
       Colors.red,
-      "lib/images/strawberry_donut.png"
-    ],
-    ["Grape Ape", "Cotsco", "84", Colors.purple, "lib/images/grape_donut.png"],
-    ["Choco", "Walmart", "95", Colors.brown, "lib/images/chocolate_donut.png"],
-
-    [
-      "Ice Cream 2",
-      "Krispy Kreme",
-      "36",
-      Colors.blue,
-      "lib/images/icecream_donut.png"
+      "lib/images/pancakes/red_velvet_pancakes.jpg"
     ],
     [
-      "Strawberry 2",
-      "Dunkin Donuts",
-      "45",
-      Colors.red,
-      "lib/images/strawberry_donut.png"
-    ],
-    [
-      "Grape Ape 2",
-      "Cotsco",
+      "Blueberry Explosion",
+      "Restaurante C",
       "84",
       Colors.purple,
-      "lib/images/grape_donut.png"
+      "lib/images/pancakes/blueberry_explosion.jpg"
     ],
     [
-      "Choco 2",
-      "Walmart",
+      "Choco-Banana",
+      "Restaurante D",
       "95",
       Colors.brown,
-      "lib/images/chocolate_donut.png"
+      "lib/images/pancakes/choco_banana.jpg"
+    ],
+    [
+      "Manzana & Canela",
+      "Restaurante E",
+      "36",
+      Colors.green,
+      "lib/images/pancakes/manzana_&_canela.jpg"
+    ],
+    [
+      "S’mores Pancakes",
+      "Restaurante F",
+      "45",
+      Colors.orange,
+      "lib/images/pancakes/s’mores_pancakes.jpg"
+    ],
+    [
+      "Pancakes Proteicos",
+      "Restaurante G",
+      "84",
+      Colors.yellow,
+      "lib/images/pancakes/pancakes_proteicos.jpg"
+    ],
+    [
+      "Dulce de leche y nueces",
+      "Restaurante H",
+      "95",
+      Colors.brown,
+      "lib/images/pancakes/dulce_de_leche_y_nueces.jpg"
     ],
   ];
 
-  PancackesTab({super.key});
+  final Function(String, double) addToCart;
+
+  PancakeTab({super.key, required this.addToCart});
 
   @override
   Widget build(BuildContext context) {
     // Para acomodar elementos en cuadricula
     return GridView.builder(
-        //Cuantos elementos tengo
-        itemCount: donutsOnSale.length,
+        // Cuantos elementos tengo
+        itemCount: pancakesOnSale.length,
         padding: const EdgeInsets.all(8.0),
-        //Prepa 1: Organiza como distribuir elementos en la cuadricula
+        // Prepa 1: Organiza como distribuir elementos en la cuadricula
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //Numero de colummnas
+            // Número de columnas
             crossAxisCount: 2,
-            //Relación de aspecto (Proporción)
+            // Relación de aspecto (Proporción)
             childAspectRatio: 1 / 1.65),
         itemBuilder: (context, index) {
-          return DonutTile(
-            donutFLavor: donutsOnSale[index][0],
-            donutStore: donutsOnSale[index][1],
-            donutPrice: donutsOnSale[index][2],
-            donutColor: donutsOnSale[index][3],
-            imageName: donutsOnSale[index][4],
+          return PancakeTile(
+            pancakeFlavor: pancakesOnSale[index][0],
+            pancakeStore: pancakesOnSale[index][1],
+            pancakePrice: pancakesOnSale[index][2],
+            pancakeColor: pancakesOnSale[index][3],
+            imageName: pancakesOnSale[index][4],
+            addToCart: addToCart,
           );
         });
   }

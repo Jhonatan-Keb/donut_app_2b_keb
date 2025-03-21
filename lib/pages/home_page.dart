@@ -14,19 +14,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //Lista de tabs
+  //Lista de Tabs
   List<Widget> myTabs = [
-    //DonutTab
     MyTab(iconPath: 'lib/icons/donut.png'),
-    //BurgerTab
     MyTab(iconPath: 'lib/icons/burger.png'),
-    //SmoothieTab
     MyTab(iconPath: 'lib/icons/smoothie.png'),
-    //PanCakeTab
     MyTab(iconPath: 'lib/icons/pancakes.png'),
-    //PizzaTab
     MyTab(iconPath: 'lib/icons/pizza.png'),
   ];
+
+  // Estado del carrito
+  List<Map<String, dynamic>> cartItems = []; // Lista de elementos en el carrito
+  double totalPrice = 0.0; // Precio total
+
+  // Función para agregar un elemento al carrito
+  void addToCart(String name, double price) {
+    setState(() {
+      cartItems.add({"name": name, "price": price});
+      totalPrice += price;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +42,15 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            //Icono izquierdo
+            //icono izq
             leading: Icon(
               Icons.menu,
-              color: Colors.grey[800],
+              color: Colors.grey[850],
             ),
-            //Icono derecho
-            actions: [
+            //icono derecho
+            actions: const [
               Padding(
-                padding: const EdgeInsets.only(right: 24.0),
+                padding: EdgeInsets.only(right: 24.0),
                 child: Icon(Icons.person),
               )
             ],
@@ -59,26 +66,24 @@ class _HomePageState extends State<HomePage> {
                     Text("I want to ", style: TextStyle(fontSize: 32)),
                     Text("Eat",
                         style: TextStyle(
-                            //Tamaño de letra
                             fontSize: 32,
-                            //Negrita
                             fontWeight: FontWeight.bold,
-                            //Subrayado
-                            decoration: TextDecoration.underline))
+                            decoration: TextDecoration.underline)) //Tamañ
                   ],
                 ),
               ),
 
-              //TabBar (Barra de pestañas)
+              //TabBar
               TabBar(tabs: myTabs),
-              //Tab BarView (Contenido de pestañas)
+
+              //TabBarView
               Expanded(
                 child: TabBarView(children: [
-                  DonutTab(),
-                  BurgerTab(),
-                  SmoothieTab(),
-                  PancackesTab(),
-                  PizzaTab()
+                  DonutTab(addToCart: addToCart),
+                  BurgerTab(addToCart: addToCart),
+                  SmoothieTab(addToCart: addToCart),
+                  PancakeTab(addToCart: addToCart),
+                  PizzaTab(addToCart: addToCart),
                 ]),
               ),
 
@@ -87,40 +92,37 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white,
                 padding: const EdgeInsets.all(16),
                 child: Row(
-                  // Poner los elementos en los extremos de la fila
+                  //Poner los elementos en los extremos de la fila
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Padding(
-                        padding: EdgeInsets.only(left: 28),
-                        child: Column(
-                          // Alinearlo a la izquierda
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '2 Items | \$45',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "Delivery Charges Included",
-                              style: TextStyle(fontSize: 12),
-                            ),
-                          ],
-                        )),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.pink,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12)),
-                      child: const Text(
-                        'View Cart',
-                        style: TextStyle(color: Colors.white),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 28),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${cartItems.length} items | \$${totalPrice.toStringAsFixed(2)}",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Delivery Charges Included",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ],
                       ),
-                    )
+                    ),
+                    ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.pink[200],
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 12)),
+                        child: Text('View Cart',
+                            style: TextStyle(color: Colors.black)))
                   ],
                 ),
-              ),
+              )
             ],
           )),
     );
