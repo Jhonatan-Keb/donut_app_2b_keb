@@ -1,6 +1,7 @@
+import 'package:donut_app_2b_keb/pages/supermarket_page.dart';
 import 'package:donut_app_2b_keb/tabs/burger_tab.dart';
 import 'package:donut_app_2b_keb/tabs/donut_tab.dart';
-import 'package:donut_app_2b_keb/tabs/pancackes_tab.dart';
+import 'package:donut_app_2b_keb/tabs/pancakes_tab.dart';
 import 'package:donut_app_2b_keb/tabs/pizza_tab.dart';
 import 'package:donut_app_2b_keb/tabs/smoothie_tab.dart';
 import 'package:donut_app_2b_keb/utils/my_tab.dart';
@@ -14,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //Lista de Tabs
+  // Lista de Tabs
   List<Widget> myTabs = [
     MyTab(iconPath: 'lib/icons/donut.png'),
     MyTab(iconPath: 'lib/icons/burger.png'),
@@ -23,108 +24,132 @@ class _HomePageState extends State<HomePage> {
     MyTab(iconPath: 'lib/icons/pizza.png'),
   ];
 
-  // Estado del carrito
-  List<Map<String, dynamic>> cartItems = []; // Lista de elementos en el carrito
-  double totalPrice = 0.0; // Precio total
+  // Variables del carrito
+  int itemCount = 0;
+  double totalPrice = 0.0;
 
-  // Función para agregar un elemento al carrito
-  void addToCart(String name, double price) {
-    setState(() {
-      cartItems.add({"name": name, "price": price});
-      totalPrice += price;
-    });
-  }
+void addToCart(String name, double price) {
+  setState(() {
+    itemCount++;
+    totalPrice += price;
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 5,
       child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              const DrawerHeader(decoration: BoxDecoration(
+                color: Color.fromARGB(255, 218, 113, 148),
+              ),
+              child: (Text('Menu', style: TextStyle(
+                color: Colors.white, fontSize: 24
+              ),)),
+              ),
+              ListTile(
+                leading: const Icon(Icons.store),
+                title: const Text('SuperMarket'),
+                onTap: () {
+                  Navigator.pop(context); //Cerrar del drawer
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SuperMarketPage(),
+                  )
+                  );
+                },
+              )
+            ],
+          ),
+        ),
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            //icono izq
-            leading: Icon(
-              Icons.menu,
-              color: Colors.grey[850],
+            // Icono de menú con funcionalidad para abrir el drawer
+            leading: Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.menu, color: Colors.grey[800]),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
             ),
-            //icono derecho
-            actions: const [
+            actions: [
               Padding(
-                padding: EdgeInsets.only(right: 24.0),
+                padding: const EdgeInsets.only(right: 24.0),
                 child: Icon(Icons.person),
               )
             ],
           ),
-          body: Column(
-            children: [
-              //Texto principal
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
-                child: Row(
-                  children: [
-                    Text("I want to ", style: TextStyle(fontSize: 32)),
-                    Text("Eat",
-                        style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline)) //Tamañ
-                  ],
-                ),
+          body: Column(children: [
+            // Texto principal
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
+              child: Row(
+                children: [
+                  Text("I want to ", style: TextStyle(fontSize: 32)),
+                  Text("Eat",
+                      style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          color: Colors.pinkAccent[800]))
+                ],
               ),
-
-              //TabBar
-              TabBar(tabs: myTabs),
-
-              //TabBarView
-              Expanded(
-                child: TabBarView(children: [
-                  DonutTab(addToCart: addToCart),
-                  BurgerTab(addToCart: addToCart),
-                  SmoothieTab(addToCart: addToCart),
-                  PancakeTab(addToCart: addToCart),
-                  PizzaTab(addToCart: addToCart),
-                ]),
-              ),
-
-              //Carrito
-              Container(
-                color: Colors.white,
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  //Poner los elementos en los extremos de la fila
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 28),
+            ),
+            // TabBar
+            TabBar(tabs: myTabs),
+            // Contenido de pestañas
+            Expanded(
+              child: TabBarView(children: [
+                DonutTab(addToCart: addToCart),
+                BurgerTab(addToCart: addToCart),
+                SmoothieTab(addToCart: addToCart),
+                PancakeTab(addToCart: addToCart),
+                PizzaTab(addToCart: addToCart)
+              ]),
+            ),
+            // Carrito
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.only(left: 28),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${cartItems.length} items | \$${totalPrice.toStringAsFixed(2)}",
+                            '$itemCount Items | \$${totalPrice.toStringAsFixed(2)}',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                            "Delivery Charges Included",
-                            style: TextStyle(fontSize: 12),
-                          ),
+                          Text("Delivery Charges Included",
+                              style: TextStyle(fontSize: 12)),
                         ],
-                      ),
-                    ),
-                    ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.pink[200],
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 12)),
-                        child: Text('View Cart',
-                            style: TextStyle(color: Colors.black)))
-                  ],
-                ),
-              )
-            ],
-          )),
+                      )),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (itemCount > 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Ir al carrito')),
+                        );
+                      }
+                    },
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.pink),
+                    child: Text('View Cart',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
+            )
+          ])),
     );
   }
 }
